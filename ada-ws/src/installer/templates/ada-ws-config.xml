@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+	<process id="@instance.Name@">
+		<Default xmlns="http://Default.transerainc.com/gen/config"
+		            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		            xsi:schemaLocation="http://Default.transerainc.com/gen/config 
+		            \tam-common\src\com\transerainc\tam\xsd\Default.xsd"
+		            notification-handler-url="http://@host@:@port@/ada-ws/nsIntf">
+		            
+			<xpaths tam-server-mapping="/server-mapping[@enterpriseId=''{0}'' and @componentType=''cha'']" 
+					server-mapping="/server-mapping[@host=''{0}'' and @instanceName=''{1}'']"
+			    	enterprise-names="/consumer/customer"
+			    	tenant-mapping="/consumer/customer[@id=''{0}'']"
+			        notification-servers="/server-mapping[@enterpriseId=''{0}'' and @componentType=''NotificationServer'']"
+			       	/>
+		</Default>
+	</process>
+</result>
+    

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<project name="bic-installer" basedir="." default="">
+
+	<target name="baseProperties">
+		<property environment="env" />
+		<property file="${property.file}" />
+		<property name="install.dir" value="/opt/ara/${instanceName}" />
+		<exec outputproperty="host" executable="/bin/sh">
+			<arg value="-c" />
+			<arg value="echo -n `hostname -f`" />
+		</exec>
+		<dirname property="antfile.dir" file="${ant.file}" />
+		<basename property="version" file="${antfile.dir}" />
+
+		<filter filtersfile="${property.file}" />
+		<filter token="install.base" value="${install.dir}" />
+		<filter token="install.instance" value="${instanceName}" />
+		<filter token="install.hostname" value="${host}" />
+		<filter token="install.version" value="${version}" />
+	</target>
+
+	<target name="setProperties" depends="baseProperties"
+		if="external.url.not.set">
+		<filter token="install.external.url" value="http://${host}:${install.http.port}/bdi" />
+	</target>
+
+	<target name="extractJar" depends="setProperties">
+		<mkdir dir="${install.dir}" />
+		<copy file="${basedir}/ara.jar" todir="${install.dir}" overwrite="true" />
+		<unzip src="${install.dir}/ara.jar" dest="${install.dir}">
+			<patternset>
+				<include name="installer/templates/"/>
+			</patternset>
+		</unzip>
+	</target>
+
+	<target name="checkInstanceExistence" depends="setProperties">
+		<available file="${install.dir}" type="dir" property="instanceExists" />
+	</target>
+
+	<target name="backupInstance" depends="setProperties,checkInstanceExistence"
+		if="instanceExists">
+		<tstamp>
+			<format property="date.string" pattern="yyyyMMdd.HHmmss" />
+		</tstamp>
+		<move todir="${install.dir}.${date.string}">
+			<fileset dir="${install.dir}" />
+		</move>
+	</target>
+
+
+	<!-- The install target is called once to install the software package. 
+		It must be re-entrant and must handle upgrades. Calling a second time should 
+		not re-install the software. Provided properties: version - The version of 
+		the package being installed -->
+	<target name="install">
+	</target>
+
+	<!-- Called to uninstall the package. Must return success if package is 
+		not installed. Provided properties: version - The version of the package 
+		being installed -->
+	<target name="uninstall">
+	</target>
+
+	<!-- Called to create an instance of the package. May be called multiple 
+		times. Provided properties: property.file - A file containing all of the 
+		properties for the instance. -->
+	<target name="instantiate" depends="backupInstance,extractJar">
+
+		<!-- Create any additional directories that may be required -->
+		<mkdir dir="${install.dir}/bin" />
+		<mkdir dir="${install.dir}/logs" />
+
+		<!-- replace template files by filtering the tokens -->
+		<copy todir="${install.dir}" filtering="true" overwrite="true">
+			<fileset dir="${install.dir}/installer/templates">
+				<include name="application.properties" />
+				<include name="ara.conf" />
+			</fileset>
+		</copy>
+		<copy todir="${install.dir}/bin" filtering="true" overwrite="true">
+			<fileset dir="${install.dir}/installer/templates">
+				<include name="*.sh" />
+			</fileset>
+		</copy>
+		<!-- fix newlines in shell scripts -->
+		<fixcrlf srcdir="${install.dir}/bin" includes="**/*.sh" />
+		<!-- add execute permissions to shell scripts -->
+		<chmod dir="${install.dir}/bin" perm="ugo+rx" includes="**/*.sh" />
+	</target>
+
+	<!-- Called to destroy an instance of the package. May be called multiple 
+		times. Provided properties: property.file - A file containing all of the 
+		properties for the instance. Must return success if the instance does not 
+		exist. -->
+	<target name="destroy">
+	</target>
+
+	<target name="initGenerateEnvironment">
+		<taskdef resource="com/transerainc/installer/antlib.xml" />
+	</target>
+
+	<!-- Called to generate configuration on the configuration host (provisioning). 
+		May be called multiple times. Provided properties: property.file - A file 
+		containing all of the properties for the instance. config.dir - The target 
+		directory for the configuration files. -->
+	<target name="generateConfig" depends="setProperties,initGenerateEnvironment">
+		<copy file="ara.json" tofile="${config.dir}/${instanceName}.xml"
+			filtering="true" overwrite="true" />
+
+		<addProcess host="${host}" instanceName="${instanceName}"
+			executionString="${install.dir}/bin/startAra.sh" startTimeout="120"
+			requiredProcess="ConfigAgent" />
+	</target>
+
+	<target name="removeConfig">
+		<taskdef resource="com/transerainc/installer/antlib.xml" />
+		<property file="${property.file}" />
+		<removeProcess host="${host}" instanceName="${instanceName}" />
+		<delete file="${config.dir}/${instanceName}.xml" />
+	</target>
+
+</project>

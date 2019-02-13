@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp1 U (http://www.altova.com) by Prashanth (Xera) -->
+<!-- edited with XMLSPY v2004 rel. 4 U (http://www.xmlspy.com) by Gaya Vukkadala (Transera Inc) -->
+<xs:schema targetNamespace="http://aha.transerainc.com/gen/agent" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://aha.transerainc.com/gen/agent" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="agentList">
+		<xs:annotation>
+			<xs:documentation>Comment describing your root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="agent" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="authenticate" minOccurs="0"/>
+				<xs:element ref="authenticateStatus" minOccurs="0"/>
+				<xs:element ref="desktopConfiguration" minOccurs="0"/>
+				<xs:element ref="message" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="virtualTeamList" minOccurs="0"/>
+				<xs:element ref="agentProfileXmlData" minOccurs="0"/>
+				<xs:element ref="agent-command" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="aepUrl" type="xs:anyURI"/>
+			<xs:attribute name="info" type="xs:string"/>
+			<xs:anyAttribute namespace="##any"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="agent">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="auxiliaryInformation" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="callAssociatedData" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="response" minOccurs="0"/>
+				<xs:element ref="attribute" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="channel-set" minOccurs="0"/>
+				<xs:element ref="skill-set" minOccurs="0"/>
+				<xs:element ref="commandMessage" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attributeGroup ref="agentAttributeGroup"/>
+			<xs:anyAttribute namespace="##any"/>
+			<!-- needed for c++ (xbinder) bindings -->
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="statusType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LoggedIn"/>
+			<xs:enumeration value="LoggedOut"/>
+			<xs:enumeration value="Login"/>
+			<xs:enumeration value="Logout"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="subStatusType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Available"/>
+			<xs:enumeration value="Ringing"/>
+			<xs:enumeration value="Connected"/>
+			<xs:enumeration value="WrapUp"/>
+			<xs:enumeration value="NotResponding"/>
+			<xs:enumeration value="Idle"/>
+			<xs:enumeration value="NotReachable"/>
+			<xs:enumeration value="LostConnection"/>
+			<xs:enumeration value="Consulting"/>
+			<xs:enumeration value="consult"/>
+			<xs:enumeration value="consult-error"/>
+			<xs:enumeration value="consult-done"/>
+			<xs:enumeration value="Transferring"/>
+			<xs:enumeration value="TransferConnected"/>
+			<xs:enumeration value="ConsultConnected"/>
+			<xs:enumeration value="ConnectedConsultReserved"/>
+			<xs:enumeration value="WrapUpConsultReserved"/>
+			<xs:enumeration value="ConnectedConsulting"/>
+			<xs:enumeration value="WrapUpConsulting"/>
+			<xs:enumeration value="AvailableConsultReserved"/>
+			<xs:enumeration value="IdleConsultReserved"/>
+			<xs:enumeration value="AvailableConsulting"/>
+			<xs:enumeration value="IdleConsulting"/>
+			<xs:enumeration value="OutdialReserved"/>
+			<xs:enumeration value="SkillConnected"/>
+			<!-- SkillConnected event is introduced for SAM SBR requirement, call side of SAM will send a SkillConnected event to agent side of SAM -->
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="auxiliaryInformation">
+		<xs:complexType>
+			<xs:attribute name="code" type="xs:int" use="required"/>
+			<xs:attribute name="name" type="xs:string"/>
+			<xs:attribute name="codeType" type="xs:string" use="required"/>
+			<xs:anyAttribute namespace="##any"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="response">
+		<xs:complexType>
+			<xs:attribute name="code" type="xs:int" use="required"/>
+			<xs:attribute name="reason" type="xs:string"/>
+			<xs:anyAttribute namespace="##any"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="authenticate">
+		<xs:annotation>
+			<xs:documentation>Comment describing your root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="username" type="xs:string" use="required"/>
+			<xs:attribute name="password" type="xs:string" use="optional"/>
+			<xs:attribute name="enterprise" type="xs:string" use="required"/>
+			<xs:attribute name="casAuthenticated" type="xs:boolean" default="false" use="optional"/>
+			<xs:attribute name="protocolVersion" type="xs:string"/>
+			<xs:attribute name="appletVersion" type="xs:string"/>
+			<xs:anyAttribute namespace="##any"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="authenticateStatus">
+		<xs:annotation>
+			<xs:documentation>This shows the response </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="reason" type="reasonType" use="required"/>
+            <xs:attribute name="maxInvAtps" type="xs:int"/>
+			<xs:attribute name="curInvAtps" type="xs:int"/>
+			<xs:anyAttribute namespace="##any"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="wrapUpList">
+		<xs:complexType>
+			<xs:attribute name="ids" type="xs:string" use="required"/>
+			<xs:attribute name="names" type="xs:string" use="required"/>
+			<xs:attribute name="interval" type="xs:long"/>
+			<xs:anyAttribute namespace="##any"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="idleList">
+		<xs:complexType>
+			<xs:attribute name="ids" type="xs:string" use="required"/>
+			<xs:attribute name="names" type="xs:string" use="required"/>
+			<xs:anyAttribute namespace="##any"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="callVariables">
+		<xs:complexType>
+			<xs:attribute name="suppressed" type="xs:string" use="required"/>
+			<xs:attribute name="baseUrl" type="xs:string"/>
+			<xs:anyAttribute namespace="##any"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="auxiliaryList">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="idleList"/>
+				<xs:element ref="wrapUpList"/>
+				<xs:element ref="callVariables" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="enterpriseId" type="xs:string"/>
+			<xs:anyAttribute namespace="##any"/>
+		</xs:complexType>
+	</xs:element>
+	<!-- ***************************************************************** -->
+	<!-- The following root element is sent back on authentication success.-->
+	<!-- ***************************************************************** -->
+	<xs:element name="desktopConfiguration">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="auxiliaryList"/>
+				<xs:element ref="agentProfileXmlData"/>
+				<xs:element ref="attribute" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="protocolVersion" type="xs:string"/>
+			<xs:attribute name="agentId" type="xs:string"/>
+			<xs:attribute name="siteId" type="xs:int"/>
+			<xs:attribute name="siteName" type="xs:string"/>
+			<xs:attribute name="teamIds" type="xs:string"/>
+			<xs:attribute name="teamNames" type="xs:string"/>
+			<xs:attribute name="defaultDn" type="xs:string"/>
+			<xs:attribute name="agentName" type="xs:string"/>
+			<xs:anyAttribute namespace="##any"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="reasonType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="authenticating"/>
+			<xs:enumeration value="loggingOutAnotherInstance"/>
+			<xs:enumeration value="badOrMissingDesktopConfigurationForThisEnterprise"/>
+			<xs:enumeration value="Not valid credentials"/>
+			<xs:enumeration value="Agent account is locked"/>
+			<xs:enumeration value="Due to multiple failed attempts to login your account has been blocked, contact your supervisor"/>
+			<xs:enumeration value="versionMismatch"/>
+			<xs:enumeration value="passwordExpired"/>
+			<xs:enumeration value="ForcedPasswordChange"/>
+			<xs:enumeration value="failed"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="message">
+		<xs:complexType>
+			<xs:attribute name="agentId" type="xs:string" use="required"/>
+			<xs:attribute name="enterpriseId" type="xs:string" use="required"/>
+			<xs:attribute name="text" type="xs:string"/>
+			<xs:attribute name="type" type="messageType" use="optional"/>
+			<xs:attribute name="from" type="xs:string"/>
+			<xs:attribute name="to" type="xs:string"/>
+			<xs:attribute name="channelId" type="xs:string"/>
+			<xs:attribute name="channelType" type="channel-types"/>
+			<xs:attribute name="callId" type="xs:string"/>
+			<xs:anyAttribute namespace="##any"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="attribute">
+		<xs:complexType>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			<xs:attribute name="value" type="xs:string"/>
+			<xs:anyAttribute namespace="##any"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="virtualTeamList">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="virtualTeam" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="virtualTeam">
+		<xs:complexType>
+			<xs:attribute name="id" type="xs:string" use="required"/>
+			<xs:attribute name="name" type="xs:string"/>
+                        <xs:attribute name="type" type="xs:string"/>
+                        <xs:attribute name="seratel-acd" type="xs:int"/>
+			<xs:anyAttribute namespace="##any"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="agent-command">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="commandMessage" minOccurs="0"/>
+				<xs:element ref="param" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="virtualTeamList" minOccurs="0"/>
+				<xs:element ref="channel-set" minOccurs="0"/>
+				<xs:element ref="skill-set" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			<xs:attribute name="callId" type="xs:string" use="optional"/>
+			<xs:attribute name="status" type="xs:string" use="optional"/>
+			<xs:attribute name="subStatus" type="xs:string" use="optional"/>
+			<xs:attribute name="agentId" type="xs:string" use="optional"/>
+			<xs:attribute name="teamId" type="xs:string" use="optional"/>
+			<xs:attribute name="siteId" type="xs:string"/>
+			<xs:attribute name="timestamp" type="xs:long" use="required"/>
+			<xs:attribute name="virtualTeamId" type="xs:string" use="optional"/>
+			<xs:attribute name="code" type="xs:int"/>
+			<xs:attribute name="reason" type="xs:string"/>
+			<xs:attribute name="transferEnabled" type="xs:boolean" default="false"/>
+			<xs:attribute name="peerAgentId" type="xs:string" use="optional"/>
+			<xs:attribute name="peerTeamId" type="xs:string" use="optional"/>
+			<xs:attribute name="peerSiteId" type="xs:string" use="optional"/>
+			<xs:attribute name="peerDn" type="xs:string" use="optional"/>
+			<xs:attribute name="agentsessionid" type="xs:string"/>
+			<xs:attribute name="peerAgentSessionId" type="xs:string"/>
+			<xs:attribute name="aepUrl" type="xs:anyURI"/>
+			<xs:attribute name="peerAgentName" type="xs:string" use="optional"/>
+			<xs:attribute name="callLegId" type="xs:string"/>
+			<xs:attribute name="agentDn" type="xs:string"/>
+			<xs:attribute name="enterpriseId" type="xs:string"/>
+			<xs:attribute name="ahaUrl" type="xs:anyURI"/>
+			<xs:attribute name="consultCallId" type="xs:string"/>
+			<xs:attribute name="enablePauseResume" type="xs:boolean" default="false"/>
+			<xs:attribute name="pauseDuration" type="xs:int" default="30000"/>
+			<xs:attribute name="channelId" type="xs:string"/>
+			<xs:attribute name="channelType" type="channel-types"/>
+			<xs:attribute name="peerChannelId" type="xs:string"/>
+			<xs:attribute name="peerChannelType" type="xs:string"/>
+			<xs:attribute name="destinationVirtualTeamId" type="xs:string"/>
+			<xs:attribute name="source" type="xs:string"/>
+			<xs:anyAttribute namespace="##any"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="commandMessage">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="param" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="param">
+		<xs:complexType>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			<xs:attribute name="value" type="xs:string" use="optional"/>
+			<xs:attribute name="editable" type="xs:boolean" use="optional"/>
+			<xs:attribute name="id" type="xs:string" use="optional"/>
+			<xs:anyAttribute namespace="##any"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:attributeGroup name="agentAttributeGroup">
+		<xs:attribute name="agentId" type="xs:string" use="required"/>
+		<xs:attribute name="loginUserId" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="enterpriseId" type="xs:string" use="required"/>
+		<xs:attribute name="enterpriseName" type="xs:string"/>
+		<xs:attribute name="siteId" type="xs:string" use="required"/>
+		<xs:attribute name="siteName" type="xs:string"/>
+		<xs:attribute name="teamId" type="xs:string" use="required"/>
+		<xs:attribute name="teamName" type="xs:string"/>
+		<xs:attribute name="positionId" type="xs:string" use="required"/>
+		<xs:attribute name="dn" type="xs:string" use="required"/>
+		<xs:attribute name="status" type="statusType" use="required"/>
+		<xs:attribute name="subStatus" type="subStatusType">
+			<xs:annotation>
+				<xs:documentation/>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="groupName" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>Not in use.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="hostIpAddress" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>The host IP Address of the agent terminal</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="externalIpAddress" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>In case of a NATted environment, the external facing IP address. If it is not a NATted environment, the hostip and the externalip will be the same.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="timestamp" type="xs:long"/>
+		<xs:attribute name="availableTimestamp" type="xs:long"/>
+		<xs:attribute name="callId" type="xs:string"/>
+		<xs:attribute name="aepUrl" type="xs:anyURI"/>
+		<xs:attribute name="retry" type="xs:boolean"/>
+		<xs:attribute name="agentsessionid" type="xs:string"/>
+		<xs:attribute name="virtualTeamId" type="xs:string"/>
+		<xs:attribute name="login" type="xs:boolean" use="optional"/>
+		<xs:attribute name="reason" type="xs:string" use="optional"/>
+		<xs:attribute name="callLegId" type="xs:string"/>
+		<xs:attribute name="ahaurl" type="xs:anyURI" use="optional"/>
+		<xs:attribute name="enablePauseResume" type="xs:boolean" default="false"/>
+		<xs:attribute name="pauseDuration" type="xs:int" default="30000"/>
+		<xs:attribute name="ahaUrl" type="xs:anyURI"/>
+		<xs:attribute name="channelId" type="xs:string"/>
+		<xs:attribute name="channelType" type="channel-types"/>
+		<!-- The following were copied from agent-command to prevent ESAM crashes during migration to Mojito -->
+		<xs:attribute name="code" type="xs:int" use="optional"/>
+		<xs:attribute name="consultCallId" type="xs:string" use="optional"/>
+		<xs:attribute name="destinationVirtualTeamId" type="xs:string" use="optional"/>
+		<xs:attribute name="peerAgentId" type="xs:string" use="optional"/>
+		<xs:attribute name="peerTeamId" type="xs:string" use="optional"/>
+		<xs:attribute name="peerSiteId" type="xs:string" use="optional"/>
+		<xs:attribute name="peerDn" type="xs:string" use="optional"/>
+		<xs:attribute name="peerAgentName" type="xs:string" use="optional"/>
+		<xs:attribute name="peerAgentSessionId" type="xs:string" use="optional"/>
+		<xs:attribute name="peerChannelId" type="xs:string" use="optional"/>
+		<xs:attribute name="peerChannelType" type="xs:string" use="optional"/>
+		<xs:attribute name="transferEnabled" type="xs:boolean" use="optional" default="false"/>
+	</xs:attributeGroup>
+	<xs:element name="agentProfileXmlData" type="xs:string"/>
+	<xs:simpleType name="messageType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="cad"/>
+			<xs:enumeration value="im"/>
+			<xs:enumeration value="alert"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="agents">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="agent" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="xPathQuery">
+		<xs:complexType>
+			<xs:attribute name="requestId" type="xs:string"/>
+			<xs:attribute name="agentId" type="xs:string" use="required"/>
+			<xs:attribute name="queryString" type="xs:string" use="required"/>
+			<xs:attribute name="channelId" type="xs:string" use="required"/>
+			<xs:attribute name="channelType" type="channel-types" use="required"/>
+			<xs:anyAttribute namespace="##any"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="xPathQueryResult">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="agents" minOccurs="0"/>
+				<xs:element ref="virtualTeamList" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="requestId" type="xs:string" use="required"/>
+			<xs:attribute name="channelId" type="xs:string" use="required"/>
+			<xs:attribute name="channelType" type="channel-types" use="required"/>
+			<xs:anyAttribute namespace="##any"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="agentControlCommand">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="param" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			<xs:anyAttribute namespace="##any"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="nameResolution">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="nameResolutionParam" minOccurs="0" maxOccurs="unbounded"/>
+				<!-- agentName -->
+			</xs:sequence>
+			<xs:attribute name="type" type="xs:string" use="required"/>
+			<xs:attribute name="id" type="xs:string" use="required"/>
+			<xs:anyAttribute namespace="##any"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="nameResolutionParam">
+		<xs:complexType>
+			<xs:attribute name="id" type="xs:string" use="required"/>
+			<xs:attribute name="name" type="xs:string" use="optional"/>
+			<xs:anyAttribute namespace="##any"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="callAssociatedData">
+		<xs:complexType>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			<xs:attribute name="value" type="xs:string"/>
+			<xs:attribute name="id" type="xs:string" use="optional"/>
+			<xs:anyAttribute namespace="##any"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="channel-set">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="channel" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="profile-id" type="xs:string"/>
+			<xs:attribute name="profile-name" type="xs:string"/>
+			<xs:attribute name="tenantId" type="xs:string"/>
+			<xs:anyAttribute namespace="##any"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="channel-types">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="telephony"/>
+			<xs:enumeration value="chat"/>
+			<xs:enumeration value="email"/>
+			<xs:enumeration value="fax"/>
+			<xs:enumeration value="video"/>
+			<xs:enumeration value="other"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="channel">
+		<xs:complexType>
+			<xs:attribute name="id" type="xs:string" use="required"/>
+			<xs:attribute name="type" type="channel-types" use="required"/>
+			<xs:attribute name="agentId" type="xs:string" use="required"/>
+			<xs:attribute name="teamId" type="xs:string"/>
+			<xs:anyAttribute namespace="##any"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="skill-set">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="skill" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="skillProfileId" type="xs:string"/>
+			<xs:attribute name="profileName" type="xs:string"/>
+			<xs:attribute name="agentId" type="xs:string" use="required"/>
+			<xs:attribute name="teamId" type="xs:string" use="required"/>
+			<xs:attribute name="tenantId" type="xs:string" use="required"/>
+			<xs:anyAttribute namespace="##any"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="skill">
+		<xs:complexType>
+			<xs:attribute name="id" type="xs:string" use="required"/>
+			<xs:attribute name="type" type="xs:int" use="required"/>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			<xs:attribute name="typeName" type="xs:string" use="required"/>
+			<xs:attribute name="enumSkillName" type="xs:string"/>
+			<xs:attribute name="enumSkillId" type="xs:string"/>
+			<xs:attribute name="value" type="xs:string"/>
+			<xs:attribute name="description" type="xs:string"/>
+			<xs:anyAttribute namespace="##any"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="media-profile">
+		<xs:complexType>
+			<xs:attribute name="telephony" type="xs:int"/>
+			<xs:attribute name="email" type="xs:int"/>
+			<xs:attribute name="fax" type="xs:int"/>
+			<xs:attribute name="chat" type="xs:int"/>
+			<xs:attribute name="video" type="xs:int"/>
+			<xs:attribute name="other" type="xs:int"/>
+			<xs:attribute name="id" type="xs:string" use="required"/>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			<xs:attribute name="agentId" type="xs:string" use="required"/>
+			<xs:attribute name="tenantId" type="xs:string" use="required"/>
+			<xs:anyAttribute namespace="##any"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="routing-data">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="media-profile"/>
+				<xs:element ref="skill-set" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="agentId" type="xs:string"/>
+			<xs:attribute name="teamId" type="xs:string"/>
+			<xs:anyAttribute namespace="##any"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="enterpriseDesktopConfiguration">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="attribute" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="version" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

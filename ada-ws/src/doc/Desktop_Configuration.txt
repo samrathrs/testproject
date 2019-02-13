@@ -1,0 +1,11 @@
+Desktop Configuration:
+{
+
+  Status
+  Sub Status
+  Last Timestamp
+  Call Properties:
+    Hold
+    Privacy Shield
+
+}

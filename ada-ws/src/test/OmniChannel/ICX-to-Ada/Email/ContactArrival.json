@@ -1,0 +1,33 @@
+{
+    "responseData": {
+      "contactType": "New",
+      "channelId": "1",
+      "omniChannelQueueId": 6,
+      "contactDetails": {
+        "subject": "test subject",
+        "body": "Test email body",
+        "entryPointId": "6686",
+        "trackingId": "261492774063810009",
+        "from": {
+          "name": "Gugl",
+          "email": "no-reply@gu.gl"
+        },
+        "to": [
+          {
+            "name": "Test 1",
+            "email": "test1@e.mail"
+          }
+        ],
+        "cc": [
+          {
+            "name": "Test 2",
+            "email": "test2@e.mail"
+          }
+        ],
+        "hasAttachments": false,
+        "isFromSupervisor": false
+      }
+    },
+    "success": true,
+    "message": "Success/Error message"
+}

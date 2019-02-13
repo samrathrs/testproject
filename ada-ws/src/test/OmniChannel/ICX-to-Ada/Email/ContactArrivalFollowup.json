@@ -1,0 +1,20 @@
+{
+  "mmResponse": {
+    "responseData": {
+      "contactType": "FollowUp",
+      "channelId": "1",
+      "omniChannelQueueId": 9,
+      "followUpDetails": {
+        "status": "FRESH",
+        "dateTime": 1494239400080,
+        "comments": "Get some data",
+        "outboundId": 576,
+        "trackingId": 261492774063810020,
+        "cduId": "fff9bf1c01f701200aee3250270f0000",
+        "customerEmail": "apoonia@broadsoft.com"
+      }
+    },
+    "success": true,
+    "message": "Success/Error message"
+  }
+}

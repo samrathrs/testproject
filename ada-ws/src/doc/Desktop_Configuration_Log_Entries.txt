@@ -1,0 +1,38 @@
+2017-03-13 17:02:02,565 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: autoWrapUpInterval = 0
+2017-03-13 17:02:02,566 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: callVariablesSuppressed =
+2017-03-13 17:02:02,566 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: callVariablesBaseUrl =
+2017-03-13 17:02:02,567 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- Adding baseUrl:
+2017-03-13 17:02:02,567 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: dn.default.description = US Format
+2017-03-13 17:02:02,567 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: dn.default.prefix = 1
+2017-03-13 17:02:02,567 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: dn.default.regex = 1[0-9]{3}[2-9][0-9]{6}([,]{1,10}[0-9]+){0,1}
+2017-03-13 17:02:02,568 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: dn.default.strip.chars = () -
+2017-03-13 17:02:02,568 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: dn.other.description = Other
+2017-03-13 17:02:02,568 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: dn.other.prefix =
+2017-03-13 17:02:02,569 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: dn.other.regex = ([0-9a-zA-Z]+[-._])*[0-9a-zA-Z]+
+2017-03-13 17:02:02,569 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: dn.other.strip.chars = () -
+2017-03-13 17:02:02,569 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: heartBeatInterval = 15000
+2017-03-13 17:02:02,569 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: missedHeartBeatsAllowed = 2
+2017-03-13 17:02:02,570 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: lostConnectionRecoveryTimeout = 120000
+2017-03-13 17:02:02,570 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: rejectDuplicateDN = false
+2017-03-13 17:02:02,570 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: ConsoleLogLevel = OFF
+2017-03-13 17:02:02,570 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: LocalDiskLogLevel = OFF
+2017-03-13 17:02:02,571 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: CentralLogLevel = OFF
+2017-03-13 17:02:02,571 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: autoAvailableWhenNotRespondingReasonsCSV = Temporarily Not Available, Not Found, RingNoAnswer, Busy Here
+2017-03-13 17:02:02,571 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: notRespondingToAvailableTimeout = 3
+2017-03-13 17:02:02,571 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: outdialEnabled = true
+2017-03-13 17:02:02,572 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: privacyShieldVisible = true
+2017-03-13 17:02:02,572 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: forceDefaultDn = false
+2017-03-13 17:02:02,572 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: endCallEnabled = true
+2017-03-13 17:02:02,573 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: endConsultEnabled = true
+2017-03-13 17:02:02,573 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: apsEnabled = true
+2017-03-13 17:02:02,573 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: apsUrl = http://monterey.transerainc.com:9100/aps/aps/index.jsp
+2017-03-13 17:02:02,574 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: incidentReportingEnabled = false
+2017-03-13 17:02:02,574 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: autoBaseUrl = false
+2017-03-13 17:02:02,574 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: dn.target.prefix = 1
+2017-03-13 17:02:02,575 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: dn.target.regex = 1[0-9]{3}[2-9][0-9]{6}([,]{1,10}[0-9]+){0,1}
+2017-03-13 17:02:02,575 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: dn.target.strip.chars = () -
+2017-03-13 17:02:02,575 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: systemRecoveryMsg = If you are on a call, click the Idle button below. If you are not currently on a call, click the Take Next Call button below.
+2017-03-13 17:02:02,575 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: diagnosticsPostUrl =
+2017-03-13 17:02:02,575 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: reloadEnabled = true
+2017-03-13 17:02:02,576 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: rejectDuplicateDN = true
+2017-03-13 17:02:02,576 [http-bio-8443-exec-5] INFO  c.t.a.c.DesktopConfigurationCommand -- 793CF65AD95CA266E763E39AE65934AC ===>> Adding application param: isPasswdPolicySet = false

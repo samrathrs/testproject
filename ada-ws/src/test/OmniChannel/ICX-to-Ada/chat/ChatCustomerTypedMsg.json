@@ -1,0 +1,16 @@
+{
+    "responseData": {
+      "cduId": "fffae60b01f903200aee3250270f0000",
+      "messageAction": "groupchat",
+      "fromPkey": "11",
+      "msgType": "12",
+      "from": "suresh",
+      "senderType": "AGENT",
+      "to": "11",
+      "message": "",
+      "messageReason": 9,
+      "sendTime": "1493207088769"
+    },
+    "success": true,
+    "message": "Success/Error message"
+}

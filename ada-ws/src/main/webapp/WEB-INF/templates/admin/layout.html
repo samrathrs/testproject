@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+<meta charset="utf-8" />
+<title>ADA | Admin</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport' />
+
+<link rel="icon" type="image/gif" th:href="@{../ROOT/favicon.ico}" />
+
+<!-- Bootstrap 3.3.2 -->
+<link rel="stylesheet" type="text/css" th:href="@{/resources/libs/bootstrap/css/bootstrap.min.css}" />
+
+<!-- Font Awesome Icons -->
+<link rel="stylesheet" type="text/css" th:href="@{/resources/css/font-awesome.min.css}" />
+
+<!-- Ionicons -->
+<link rel="stylesheet" type="text/css" th:href="@{/resources/css/ionicons.min.css}" />
+
+<!-- DATA TABLES -->
+<link rel="stylesheet" type="text/css" th:href="@{/resources/libs/plugins/datatables/dataTables.bootstrap.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/resources/libs/plugins/datatables/dataTables.responsive.css}" />
+
+<!-- iCheck CSS -->
+<link rel="stylesheet" type="text/css" th:href="@{/resources/libs/plugins/iCheck/flat/blue.css}" />
+
+<!-- Select2 CSS -->
+<link rel="stylesheet" type="text/css" th:href="@{/resources/libs/plugins/select2/select2.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/resources/libs/plugins/select2/select2-bootstrap.css}" />
+
+<!-- jQuery validate plugin -->
+<link rel="stylesheet" type="text/css" th:href="@{/resources/libs/plugins/jquery-validate/jquery.validate.css}" />
+
+<!-- Bootstrap Dialog -->
+<link rel="stylesheet" type="text/css" th:href="@{/resources/libs/plugins/bootstrap-dialog/bootstrap-dialog.min.css}" />
+
+<!-- Application style -->
+<link rel="stylesheet" type="text/css" th:href="@{/resources/css/app.min.css}" />
+
+<!-- Theme style -->
+<link rel="stylesheet" type="text/css" th:href="@{/resources/css/skins/skin-blue.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/resources/css/skins/skin-blue-overrides.css}" />
+
+<link rel="stylesheet" type="text/css" th:href="@{/resources/css/page.css}" />
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+	          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	          <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+	        <![endif]-->
+</head>
+
+<body class="skin-blue layout-top-nav fixed">
+
+    <div class="wrapper">
+        <header class="main-header">
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                <!-- <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"> <span class="sr-only">Toggle navigation</span>
+				</a> -->
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <!-- Logo -->
+                        <div class="logo">
+                            <a th:href="@{http://www.transerainc.com}"><img class="pointer" th:attr="src=@{/resources/img/transera-logo_short.png}" alt="www.transerainc.com"
+                                title="www.transerainc.com" src="" /></a> &nbsp;&nbsp; <a th:href="@{/nondmz/admin/home.html}"><small>ADA Admin</small></a>
+                        </div>
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="navbar-collapse">
+                        <ul class="nav navbar-nav" id="header-menu">
+                            <li id="home-menu"><a th:href="@{/nondmz/admin/home.html}"> <i class="fa fa-home"></i> <span>Home</span></a></li>
+                            <li id="reload-menu"><a th:href="@{/nondmz/admin/reload.html}"> <i class="fa fa-refresh"></i> <span>Reload</span></a></li>
+                            <!-- li id="agent-menu"><a th:href="@{/nondmz/admin/agents.html}" > <i class="fa fa-user"></i> <span>Agents</span></a></li-->
+                            <li id="cache-menu" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <i
+                                    class="fa fa-cubes"></i> Cache <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a th:href="@{/nondmz/admin/agent-info.html}"><i class="fa fa-angle-double-right"></i>Active Agents</a></li>
+                                    <li><a th:href="@{/nondmz/admin/properties.html}"><i class="fa fa-angle-double-right"></i>ADA Properties</a></li>
+                                    <li><a th:href="@{/nondmz/admin/logging.html}"><i class="fa fa-angle-double-right"></i>Logging Levels</a></li>
+                                </ul></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <!-- User Account: style can be found in dropdown.less -->
+                            <li class="user user-menu"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-user"></i> <span>Admin</span>
+                            </a></li>
+                            <!-- <li class="light-blue"><a data-toggle="dropdown" href="#" class="dropdown-toggle"> <span class="user-info"> <small>Welcome,</small> <span>Admin</span></span></a></li> -->
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container-fluid -->
+            </nav>
+        </header>
+
+        <div layout:fragment="page-content"></div>
+
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <!-- <b>Version</b> 2.0 -->
+            </div>
+            <strong> <span th:text="#{label.footer.part1}"> Copyright © 2015</span> <a href="http://www.transerainc.com" th:text="#{label.footer.part2}">Transera
+                    Communications, Inc</a>.
+            </strong> <span th:text="#{label.footer.part3}">All rights reserved.</span>
+        </footer>
+        <!-- /footer -->
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- jQuery 2.x -->
+    <script type="text/javascript" th:src="@{/resources/libs/jquery/js/jquery.min.js}"></script>
+
+    <!-- jQueryUI 1.11.x -->
+    <script type="text/javascript" th:src="@{/resources/libs/jquery-ui/js/jquery-ui.min.js}"></script>
+
+    <!-- jQuery validate plugin -->
+    <script type="text/javascript" th:src="@{/resources/libs/plugins/jquery-validate/jquery.validate.min.js}"></script>
+
+    <!-- Bootstrap 3.x -->
+    <script type="text/javascript" th:src="@{/resources/libs/bootstrap/js/bootstrap.min.js}"></script>
+
+    <!-- jQuery Datatable -->
+    <script type="text/javascript" th:src="@{/resources/libs/plugins/datatables/jquery.dataTables.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/libs/plugins/datatables/dataTables.bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/libs/plugins/datatables/dataTables.fixedHeader.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/libs/plugins/datatables/dataTables.responsive.min.js}"></script>
+
+    <!-- Select2 dropdown -->
+    <script type="text/javascript" th:src="@{/resources/libs/plugins/select2/select2.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/libs/plugins/iCheck/icheck.min.js}"></script>
+
+    <!-- SlimScroll 1.3.0 -->
+    <script type="text/javascript" th:src="@{/resources/libs/plugins/slimScroll/jquery.slimscroll.min.js}"></script>
+
+    <!-- Bootstrap Dialog -->
+    <script type="text/javascript" th:src="@{/resources/libs/plugins/bootstrap-dialog/bootstrap-dialog.min.js}"></script>
+
+    <!-- app.js -->
+    <script type="text/javascript" th:src="@{/resources/js/app.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/page.js}"></script>
+    
+    <script type="text/javascript" th:src="@{/resources/js/Util.js}"></script>
+
+    <script th:inline="javascript" type="text/javascript">
+          /*<![CDATA[*/
+
+          $(document).ready(function() {
+            var page = new com.transerainc.ada.Page();
+            page.initializePage();
+            setJsI18nMessages();
+          });
+
+          function setJsI18nMessages() {
+            // javascript i18n messages 
+            // jsMessages array is defined in page.js
+
+            BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_DEFAULT] = /*[[#{js.message.dialog.type.default}]]*/'Information';
+            BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_INFO] = /*[[#{js.message.dialog.type.info}]]*/'Information';
+            BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_PRIMARY] = /*[[#{js.message.dialog.type.primary}]]*/'Information';
+            BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_SUCCESS] = /*[[#{js.message.dialog.type.success}]]*/'Success';
+            BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_WARNING] = /*[[#{js.message.dialog.type.warning}]]*/'Warning';
+            BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_DANGER] = /*[[#{js.message.dialog.type.danger}]]*/'Danger';
+            BootstrapDialog.DEFAULT_TEXTS['OK'] = /*[[#{js.label.dialog.button.ok}]]*/'OK';
+            BootstrapDialog.DEFAULT_TEXTS['CANCEL'] = /*[[#{js.label.dialog.button.cancel}]]*/'Cancel';
+            BootstrapDialog.DEFAULT_TEXTS['CONFIRM'] = /*[[#{js.label.dialog.button.confirm}]]*/'Confirmation';
+
+            jsMessages['message.no.records.available'] = /*[[#{js.message.no.records.available}]]*/'No records available';
+            jsMessages['message.validation.alpha.numeric'] = /*[[#{js.message.validation.alpha.numeric}]]*/'';
+            jsMessages['message.validation.start.with.space'] = /*[[#{js.message.validation.start.with.space}]]*/'';
+            jsMessages['message.validation.consecutive.space'] = /*[[#{js.message.validation.consecutive.space}]]*/'';
+            jsMessages['message.delete.confirmation'] = /*[[#{js.message.delete.confirmation}]]*/'';
+
+          }
+
+          function cancelForm() {
+
+            $('input[type=text]').each(function() {
+              var data = $.trim($(this).val());
+              if (data === '') {
+                $(this).val('dummy')
+              }
+            });
+
+            $('textarea').each(function() {
+              var data = $.trim($(this).val());
+              if (data === '') {
+                $(this).val('dummy work around for cancel');
+              }
+            });
+            //$("#name").val('test');
+          }
+
+          function createDataTable(tableId, hasRadio) {
+
+            var orderCol = hasRadio ? 1 : 0;
+
+            var dtTable = $('#' + tableId).dataTable({
+              language : {
+                "emptyTable" : "No records available"
+              },
+              fnDrawCallback : function() {
+                $('input:radio[name=entity-key]').on('ifChecked', function(event) {
+                  $('#editBtn').removeAttr("disabled");
+                  $('#viewBtn').removeAttr("disabled");
+                });
+              },
+              order : [ [ orderCol, "asc" ] ],
+              columnDefs : [ {
+                "targets" : 0,
+                "orderable" : hasRadio ? false : true
+              } ],
+              //scrollY : "400px",
+              scrollX : true,
+              sScrollX : "100%",
+              sScrollXInner : "99%",
+              //scrollCollapse : true,
+              paging : true
+            /*bLengthChange : true,
+            bFilter : true,
+            bSort : true,
+            bInfo : true,*/
+            //bAutoWidth : true
+            });
+            /* new $.fn.dataTable.FixedColumns(dtTable, {
+                leftColumns : 2
+            }); */
+
+            // $(window).on('resize', function() {
+            //     dtTable.fnAdjustColumnSizing();
+            // });
+            return dtTable;
+          }
+
+          /*]]>*/
+        </script>
+
+    <th:block layout:fragment="script" />
+
+</body>
+</html>

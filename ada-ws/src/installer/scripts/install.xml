@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<project name="ada-ws-installer" basedir="." default="">
+
+	<target name="baseProperties">
+		<property environment="env" />
+		<property file="${property.file}" />
+		<property name="install.dir" value="/opt/ada-ws/${instanceName}" />
+		<property name="instance.name" value="${instanceName}" />
+		<property name="customPath" value="${customPath}" />
+		<exec outputproperty="host" executable="/bin/sh">
+			<arg value="-c" />
+			<arg value="echo -n `hostname -f`" />
+		</exec>
+		<dirname property="antfile.dir" file="${ant.file}" />
+		<basename property="version" file="${antfile.dir}" />
+
+		<filter filtersfile="${property.file}" />
+		<filter token="instance.base" value="${install.dir}" />
+		<filter token="instance.name" value="${instanceName}" />
+		<filter token="instance.hostname" value="${host}" />
+		<filter token="instance.version" value="${version}" />
+		
+		<condition property="isBCCDataCenter">
+				<or>
+					<equals arg1="true" arg2="${is.bcc.data.center}" />
+					<equals arg1="yes" arg2="${is.bcc.data.center}" />
+				</or>
+		</condition>
+	</target>
+
+	<target name="checkExternalUrl">
+		<condition property="external.url.not.set">
+			<equals arg1="${install.external.url}" arg2="" />
+		</condition>
+	</target>
+
+	<target name="setProperties" depends="baseProperties,checkExternalUrl" if="external.url.not.set">
+		<filter token="install.external.url" value="http://${host}:${install.http.port}" />
+	</target>
+
+	<target name="extractJar" depends="setProperties">
+		<mkdir dir="${install.dir}" />
+		<untar src="${basedir}/ada-ws-${version}.tar" dest="${install.dir}" />
+	</target>
+
+	<target name="checkInstanceExistence" depends="setProperties">
+		<available file="${install.dir}" type="dir" property="instanceExists" />
+	</target>
+
+	<target name="backupInstance" depends="setProperties,checkInstanceExistence" if="instanceExists">
+		<delete dir="${install.dir}.bak" />
+		<move todir="${install.dir}.bak">
+			<fileset dir="${install.dir}" />
+		</move>
+	</target>
+
+	<!--
+      The install target is called once to install the software package.
+      It must be re-entrant and must handle upgrades.
+      Calling a second time should not re-install the software.
+      Provided properties:
+        version - The version of the package being installed
+    -->
+	<target name="install">
+	</target>
+
+	<!--
+      Called to uninstall the package.
+      Must return success if package is not installed.
+      Provided properties:
+        version - The version of the package being installed
+    -->
+	<target name="uninstall">
+	</target>
+
+	<target name="replaceFavicon" depends="setProperties,extractJar" unless="isBCCDataCenter">
+		<delete file="${install.dir}/webapps/ROOT/favicon.ico"/>
+		<copy file="${install.dir}/webapps/ada-ws/images/favicon-transera.ico" failonerror="false" todir="${install.dir}/webapps/ROOT" overwrite="true" />
+		<rename src="${install.dir}/webapps/ROOT/favicon-transera.ico" dest="${install.dir}/webapps/ROOT/favicon.ico"/>
+	</target>
+	<!--
+      Called to create an instance of the package.  May be called multiple times.
+      Provided properties:
+        property.file   - A file containing all of the properties for the instance.
+    -->
+	<target name="instantiate" depends="backupInstance,extractJar,replaceFavicon">
+
+		<!-- replace template files by filtering the tokens -->
+
+		<copy todir="${install.dir}/conf" filtering="true" overwrite="true">
+			<fileset dir="${basedir}">
+				<include name="server.xml" />
+				<include name="tomcat-users.xml" />
+				<include name="context.xml" />
+			</fileset>
+		</copy>
+
+		<copy todir="${install.dir}/config" filtering="true" overwrite="true">
+			<fileset dir="${basedir}">
+				<include name="ada-ws.properties" />
+				<include name="logback.xml" />
+			</fileset>
+		</copy>
+
+
+		<copy todir="${install.dir}/bin" filtering="true" overwrite="true">
+			<fileset dir="${basedir}">
+				<include name="*.sh" />
+			</fileset>
+		</copy>
+
+		<!--
+		Call the SSL install here 
+		-->
+		<antcall target="installSsl" inheritall="true" />
+
+		<!-- fix newlines in shell scripts -->
+		<fixcrlf srcdir="${install.dir}/bin" includes="**/*.sh" />
+
+		<!-- add execute permissions to shell scripts -->
+		<chmod dir="${install.dir}/bin" perm="ugo+rx" includes="**/*.sh" />
+
+	</target>
+
+	<target name="installSsl" depends="checkSslInstall" if="isSslInstall">
+		<filter filtersfile="${property.file}" />
+		<copy file="${install.dir}/templates/server-ssl.xml" tofile="${install.dir}/conf/server.xml" filtering="true" overwrite="true" />
+	</target>
+
+	<target name="checkSslInstall">
+		<condition property="isSslInstall">
+			<equals arg1="true" arg2="${sslEnabled}" />
+		</condition>
+	</target>
+	<!--
+	      Called to destroy an instance of the package.  May be called multiple times.
+	      Provided properties:
+	        property.file   - A file containing all of the properties for the instance.
+	        
+	      Must return success if the instance does not exist.
+	    -->
+	<target name="destroy">
+	</target>
+
+	<target name="initGenerateEnvironment">
+		<taskdef resource="com/transerainc/installer/antlib.xml" />
+	</target>
+
+	<!--
+	      Called to generate configuration on the configuration host (provisioning).
+	      May be called multiple times.
+	      Provided properties:
+	        property.file   - A file containing all of the properties for the instance.
+	        config.dir      - The target directory for the configuration files.
+	    -->
+	<target name="generateConfig" depends="setProperties,initGenerateEnvironment">
+		
+		<taskdef resource="com/transerainc/installer/antlib.xml" />
+
+		<property file="${property.file}" />
+		<if>
+			<equals arg1="${sslEnabled}" arg2="true" />
+			<then>
+				<filter token="passwordChangeUrl" value="https://${passwordChangeHost}/passwordChange/index.php" />
+				<filter token="passwordResetUrl" value="https://${passwordChangeHost}/passwordChange/pwdReset.php" />
+			</then>
+			<elseif>
+				<equals arg1="${sslEnabled}" arg2="false" />
+				<then>
+					<filter token="passwordChangeUrl" value="http://${passwordChangeHost}/passwordChange/index.php" />
+					<filter token="passwordResetUrl" value="http://${passwordChangeHost}/passwordChange/pwdReset.php" />
+				</then>
+			</elseif>
+		</if>
+
+		<filter token="host" value="${host}" />
+		<filter token="port" value="${port}" />
+		<filter token="failoverEnabled" value="${failoverEnabled}" />
+		<filter token="instanceName" value="${instanceName}" />
+		<filter token="bootstrapServers" value="${bootstrapServers}" />
+		<filter token="adaServers" value=":${adasPort}" />
+		<filter token="passwordChangeUrl" value="${passwordChangeUrl}" />
+		<filter token="passwordResetUrl" value="${passwordResetUrl}" />
+		<filter token="apsUrl" value="${apsUrl}" />
+		<filter token="supervisorAlertUrl" value="${supervisorAlertUrl}" />
+		<filter token="freeFormSupervisorAlertEnabled" value="${freeFormSupervisorAlertEnabled}" />
+		<filter token="passwordExpirationWarningInDays" value="${passwordExpirationWarningInDays}" />
+		<filter token="updateTitleWithStatus" value="${updateTitleWithStatus}" />
+		<filter token="aimUrl" value="${aimUrl}" />
+		<filter token="seatmapUrl" value="${seatmapUrl}" />
+		<filter token="cookiePersistence" value="${cookiePersistence}" />
+		<filter token="sfdc.namespace" value="${sfdc.namespace}" />
+		<filter token="cookiePrefix" value="${cookiePrefix}" />
+		<filter token="customPath" value="${customPath}" />
+		<filter token="cdnUrl" value="${cdnUrl}" />
+		<filter token="urUrl" value="${urUrl}" />
+		<property environment="env" />
+		<echo message="${config.dir}/${instanceName}" />
+
+		<!-- <copy file="ada-ws.xml" tofile="${config.dir}/${instanceName}.xml" filtering="true" overwrite="true" /> -->
+		<addProcess host="${host}" instanceName="${instanceName}" executionString="${install.dir}/bin/startAda.sh run" startTimeout="120" requiredProcess="ConfigAgent" />
+	</target>
+
+	<target name="removeConfig">
+		<taskdef resource="com/transerainc/installer/antlib.xml" />
+		<property file="${property.file}" />
+		<removeProcess host="${host}" instanceName="${instanceName}" />
+		<!-- <delete file="${config.dir}/${instance.name}.xml" /> -->
+	</target>
+
+</project>

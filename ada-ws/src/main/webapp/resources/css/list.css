@@ -1,0 +1,139 @@
+.breTable {
+	display: table;
+	width: 100%;
+}
+
+.breTable a, .breTable a:hover {
+	/* text-decoration: underline; */
+	color: #3d3d3d;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.breTableCell {
+	vertical-align: top;
+	display: table-cell;
+}
+
+.breList {
+	list-style: none;
+	/* padding: 0px; */
+	margin: 0px;
+}
+
+.breListItem {
+	padding: 5px;
+	position: relative;
+	text-align: left;
+	border-bottom: 1px solid #CCCCCC;
+}
+
+.breListItem.itemSeparator {
+	border-bottom: 1px solid #CCCCCC;
+}
+
+.breListItem.itemSeparator:hover {
+	background-color: #FFFFFF;
+}
+
+.breListItem.itemSeparator:last-child {
+	border-bottom: 0px;
+}
+
+#contextsList .breListItem {
+	cursor: pointer;
+}
+
+#contextsList .breListItem:hover {
+	background-color: #e1e3e2;
+}
+
+#contextsList .breListItem.active {
+	background-color: #ced8fb;
+}
+
+#contextList .breListItem:hover {
+	background-color: #e1e3e2;
+}
+
+#contextList .breListItem.active {
+	background-color: #ced8fb;
+}
+
+.breListItem .edit, .breListItem .delete, .breListItem .copy {
+	position: relative;
+	top: 0px;
+	right: 0px;
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.breListItem .edit:hover, .breListItem .delete:hover, .breListItem .copy:hover
+	{
+	background-color: #e3e1df;
+}
+
+.breItemSubText {
+	font-size: 0.9em;
+	color: gray;
+	padding-bottom: 5px;
+}
+
+.breItemInfoText {
+	color: #3d3d3d;
+	font-size: 0.9em;
+}
+
+.breItemInfo {
+	width: 300px;
+	background-color: #ced8fb;
+	padding: 5px;
+}
+
+.breInfo .breListItem {
+	border-top: 1px solid #3d3d3d;
+}
+
+.breInfo .breListItem:first-child {
+	border-top: 0;
+}
+
+.breInfoHeading {
+	color: #3d3d3d;
+	border-bottom: 2px solid #3d3d3d;
+	padding-bottom: 5px;
+	overflow: hidden;
+}
+
+.hide {
+	display: none;
+}
+
+.heading_title {
+	border-bottom: 1px solid #b3b2b2;
+	overflow: hidden;
+	margin-bottom: 30px;
+	margin-top: 20px
+}
+
+.breSelect {
+	width: auto;
+	margin: 0 10px 0 0;
+	background-color: #ced8fb;
+	color: #3d3d3d;
+	height: 25px;
+}
+
+#toolbar label {
+	font-size: 12px;
+	display: inline;
+	vertical-align: middle;
+}

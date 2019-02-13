@@ -1,0 +1,10 @@
+{
+    "responseData": {
+      "cduId": "fffae60b01f903200aee3250270f0000",
+      "customerPkey": 2471,
+      "to": "11",
+      "memberName": "suresh"
+    },
+    "success": true,
+    "message": "Success/Error message"
+}

@@ -1,0 +1,68 @@
+{
+  "auxiliaryMetadata" : {
+    "id" : null,
+    "query" : {
+      "anchorId" : "c48d375d-8685-4335-b8a0-cc58cb8be196",
+      "columns" : null,
+      "filterGroups" : [ {
+        "operator" : "AND",
+        "valueFilters" : [ {
+          "columnName" : "login__s",
+          "value" : "a1@jeff.transerainc.com",
+          "operator" : "EQUAL",
+          "includeIfColumnNotPresent" : false
+        } ]
+      } ],
+      "auxiliaryDataType" : "USER_DATA",
+      "objectType" : "user"
+    },
+    "columns" : null,
+    "lastAccessTimestamp" : 0,
+    "numberOfRecords" : 1
+  },
+  "auxiliaryDataList" : [ {
+    "id" : "AVqMCEcWsqqX61p0jGTC",
+    "type" : "user",
+    "attributes" : {
+      "lastName__s" : "A1",
+      "_lmts__l" : 1488477738023,
+      "historicalReportsEnabled__i" : 1,
+      "multimediaProfileId__s" : "",
+      "mobile__s" : "14083992876",
+      "externalId__s" : "122260",
+      "work__s" : "14083992876",
+      "roleId__s" : "1",
+      "status__i" : 1,
+      "tid" : "10031",
+      "sid" : "AVqMCEcWsqqX61p0jGTC",
+      "secretQuestion__s" : "Best Cricketer Name",
+      "city__s" : "Bangalore",
+      "profileId__s" : "",
+      "invalidAttempts__i" : 0,
+      "login__s" : "a1@jeff.transerainc.com",
+      "street__s" : "Jp Nagar  6TH PHASE",
+      "postalCode__s" : "560042",
+      "agentProfileId__s" : "",
+      "companyName__s" : "Jeff",
+      "locked__i" : 0,
+      "passwordPolicyId__s" : "",
+      "country__s" : "India",
+      "siteId__s" : "AVqL-jUbsqqX61p0jGTA",
+      "tenantId__s" : "10031",
+      "email__s" : "pgujjeti@broadsoft.com",
+      "cstts" : 1488408037141,
+      "_type__s" : "user",
+      "passwordLastModifiedTime__l" : 0,
+      "state__s" : "Karnata",
+      "firstName__s" : "A1",
+      "extMultimediaProfileId__s" : "",
+      "password__s" : "DB/BV7xNvGxGnk1qEYjMyhySvvr6VndeM/ypUtHtE40=$OHAWLSP8yZL88eQ37ueMVLG0tFTTxK3L2//j5kmAbe8=",
+      "defaultDn__s" : "1234",
+      "changePassword__i" : 1,
+      "secretAnswer__s" : "Sachin",
+      "callCenterEnabled__i" : 1,
+      "teamIds__sa" : [ "0" ],
+      "skillProfileId__s" : ""
+    }
+  } ]
+}

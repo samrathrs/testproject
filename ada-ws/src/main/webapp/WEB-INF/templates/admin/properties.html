@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="/admin/layout">
+
+<body>
+	<!-- Content Wrapper. Contains page content -->
+	<div layout:fragment="page-content" class="content-wrapper">
+
+		<!-- Content Header (Page header) -->
+		<div class="content-header">
+			<h1>ADA Properties</h1>
+			<ol class="breadcrumb">
+				<li><i class="fa fa-home"></i> <span>Home</span></li>
+				<li class="active">ADA Properties</li>
+			</ol>
+		</div>
+
+		<!-- Main content -->
+		<div class="content body">
+
+			<div layout:fragment="content" class="container">
+				<span id="current-page" class="propertiesf-menu"></span>
+				<div class="alert fade" role="alert" id="result-msg-div"></div>
+				<div th:if="${properties != null}">
+					<table id="data-table" class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<td>Property Name</td>
+								<td>Value</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="prop : ${properties}">
+								<td th:text="${prop.key}"></td>
+								<td th:text="${prop.value}"></td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+				<div th:if="${properties == null}">There are no property keys loaded.</div>
+
+			</div>
+
+		</div>
+		<!-- /.content -->
+	</div>
+	<!-- ./content-wrapper -->
+
+	<th:block layout:fragment="script">
+		<script th:inline="javascript" type="text/javascript">
+			/*<![CDATA[*/
+			/*$(document).ready(function() {
+				var page = new com.transerainc.ada.Page();
+				page.toggleMenuTab('agent-menu');
+				createDataTable('data-table', false);
+			});*/
+			/*]]>*/
+		</script>
+	</th:block>
+
+</body>
+</html>

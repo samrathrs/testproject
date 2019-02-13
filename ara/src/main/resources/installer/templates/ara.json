@@ -1,0 +1,11 @@
+{
+    "aimXpath": { 
+        "xpath": "/pop-mapping[@componentType='aim' and @portType='0']",
+        "attributes": "id,operatingMode,port,host,componentType,portType"
+    },
+    "tacgConfig": {
+    	"applicationName": "REST-API",
+    	"commandInterface": "/RESTInf",
+    	"aimAgentLookupInterface": "/aim/lookupActiveAgentsIntf"
+    }
+}

@@ -1,0 +1,59 @@
+1.) Which APIs are the correct ones to use for CRUD operations on Dialer (wcb) transaction data (currently stored in RTMC db): 
+      - wcb request
+      - wcb history
+      - wcb request attributes
+      - wcb request config
+	  
+
+SV : We need objects to store these records.  
+
+http://ace001.dev.broadcloudcc.com:10888/aws/api/auxiliary-data/resources/{type}
+
+We have the following tables to hold WCB transactional data, for this we would need objects to store and retrieve data from Analyer platform.
+
+wcb_request_mst
+wcb_request_status_mst (not sure why we needed this)
+wcb_request_attributes
+wcb_history_mst
+
+We can have all of these objects or can be conslidated. Please verify and decide which one needed.
+
+wcb-request
+wcb-history
+
+Here are the sample end points:
+
+http://ace001.dev.broadcloudcc.com:10888/aws/api/auxiliary-data/resources/wcb-request
+
+http://ace001.dev.broadcloudcc.com:10888/aws/api/auxiliary-data/resources/wcb-history
+
+We use the following naming conventions for object attributes. 
+
+String 			: <attr-name>__s
+Integer 		: <attr-name>__i
+Long 			: <attr-name>__l
+Double 			: <attr-name>__d
+String Array 	: <attr-name>__sa
+Integer Array	: <attr-name>__ia
+Long Array		: <attr-name>__la
+Double Array	: <attr-name>__da
+
+
+2.) Can you provide some example parameters for Analyzer's Resource auxiliary data APIs' invocations, especially POST operations?
+In particular, which API do I hit to create the object type?
+I assume the POST against: 
+/api/auxiliary-data/metatdata/{type}
+
+
+
+3.) What are the flows of usage?
+Do I assume that object type creation (POST) is invoked ONCE for each object type?
+Then, subsequent calls should be CRUD operations against: 
+/api/auxiliar-data/resources/.....
+especially, POST (and sometimes PUT) since Dialer creates new objects for each dialing invocation?!
+Dialer's data storage usage consists mostly of data row insertion and then sometimes data row update against the RTMC database
+==> Which I assume would translate into object creation and then sometimes object update against the Analyzer APIs?!
+
+4.) Where can I find documentation for the query definition: 
+com.tranerainc.tide.pojo.auxiliary.Query
+?

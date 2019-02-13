@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <file>${catalina.home}/logs/ada.log</file>
+
+        <!-- Ref: http://logback.qos.ch/manual/appenders.html#TimeBasedRollingPolicy -->
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily roll over -->
+            <fileNamePattern>${catalina.home}/logs/ada.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 10MB -->
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- keep 7 days' worth of history -->
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <!-- %-4 - Right pad if less than 4 characters relative - Number of milliseconds since the start of the App logger{36} - Abbreviate the logger name if its more than 36 characters. 
+                The part of the logger after the last "." is always displayed though. Ref: http://logback.qos.ch/manual/layouts.html#conversionWord -->
+            <pattern>%d [%thread] %-5level %logger{36} -- %msg%n</pattern>
+        </encoder>
+
+    </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%d [%thread] %-5level %logger{36} -- %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Application Loggers -->
+    <logger name="com.transerainc.adaws" level="@logging.level@"/>
+
+    <!-- <logger name="org.springframework" level="info"/> -->
+    <!-- <logger name="org.apache.shiro" level="trace"/> -->
+
+    <!-- 3rdparty Loggers -->
+    <!-- <logger name="org.springframework.core" level="info"/> <logger name="org.springframework.beans" level="info"/> <logger name="org.springframework.context" level="info"/> <logger 
+        name="org.springframework.web" level="info"/> <logger name="org.springframework.security" level="info"/> -->
+
+    <root level="WARN">
+        <appender-ref ref="FILE"/>
+        <!-- <appender-ref ref="STDOUT" /> -->
+    </root>
+
+</configuration>

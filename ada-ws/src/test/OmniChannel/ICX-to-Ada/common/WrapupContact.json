@@ -1,0 +1,13 @@
+{
+  	"action": "WrapUpRequest",
+    "responseData": {
+        "sessionId": "ffe0c0a0000e001e0aee324fa0640000",
+        "cduId": "ffe0969c01b901200aee3250270f0000",
+        "omniChannelQueue": {
+            "id": 9,
+            "channelId": 1
+        }
+    },
+    "success": true,
+    "message": "Success/Error message"
+}

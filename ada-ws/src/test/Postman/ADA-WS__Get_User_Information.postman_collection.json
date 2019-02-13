@@ -1,0 +1,209 @@
+{
+	"info": {
+		"_postman_id": "ee44cf6e-9566-4988-bf5c-12be11cfb077",
+		"name": "ADA-WS__Get_User_Information",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get_Specific_User_Details_Information_using_TenantId",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "From",
+						"value": "api@ccone.broadcloudcc.com"
+					},
+					{
+						"key": "Authorization",
+						"value": "7r5+2/9SXLeWf5CO1qgpCMApQcs=; tenantId=10571"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://ace001.dev.broadcloudcc.com:10888/aws/api/auxiliary-data/user-data/user?login__s=OsakaAgent35@fedex.com",
+					"protocol": "http",
+					"host": [
+						"ace001",
+						"dev",
+						"broadcloudcc",
+						"com"
+					],
+					"port": "10888",
+					"path": [
+						"aws",
+						"api",
+						"auxiliary-data",
+						"user-data",
+						"user"
+					],
+					"query": [
+						{
+							"key": "login__s",
+							"value": "OsakaAgent35@fedex.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Specific_User_Details_Information_using_User",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "From",
+						"value": "api@ccone.broadcloudcc.com"
+					},
+					{
+						"key": "Authorization",
+						"value": "7r5+2/9SXLeWf5CO1qgpCMApQcs=; user=OsakaAgent35@fedex.com"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://ace001.dev.broadcloudcc.com:10888/aws/api/auxiliary-data/user-data/user?login__s=OsakaAgent35@fedex.com",
+					"protocol": "http",
+					"host": [
+						"ace001",
+						"dev",
+						"broadcloudcc",
+						"com"
+					],
+					"port": "10888",
+					"path": [
+						"aws",
+						"api",
+						"auxiliary-data",
+						"user-data",
+						"user"
+					],
+					"query": [
+						{
+							"key": "login__s",
+							"value": "OsakaAgent35@fedex.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_All_Users_Information",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "From",
+						"value": "api@ccone.broadcloudcc.com"
+					},
+					{
+						"key": "Authorization",
+						"value": "7r5+2/9SXLeWf5CO1qgpCMApQcs=; tenantId=10571"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://ace001.dev.broadcloudcc.com:10888/aws/api/security/users",
+					"protocol": "http",
+					"host": [
+						"ace001",
+						"dev",
+						"broadcloudcc",
+						"com"
+					],
+					"port": "10888",
+					"path": [
+						"aws",
+						"api",
+						"security",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Alternate_Get_All_User_Information_using_User",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "From",
+						"value": "api@ccone.broadcloudcc.com"
+					},
+					{
+						"key": "Authorization",
+						"value": "7r5+2/9SXLeWf5CO1qgpCMApQcs=; user=OsakaAgent35@fedex.com"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://ace001.dev.broadcloudcc.com:10888/aws/api/security/users?login=OsakaAgent35@fedex.com",
+					"protocol": "http",
+					"host": [
+						"ace001",
+						"dev",
+						"broadcloudcc",
+						"com"
+					],
+					"port": "10888",
+					"path": [
+						"aws",
+						"api",
+						"security",
+						"users"
+					],
+					"query": [
+						{
+							"key": "login",
+							"value": "OsakaAgent35@fedex.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Tenant_Information",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "From",
+						"value": "api@ccone.broadcloudcc.com"
+					},
+					{
+						"key": "Authorization",
+						"value": "7r5+2/9SXLeWf5CO1qgpCMApQcs=; user=OsakaAgent35@fedex.com"
+					},
+					{
+						"key": "",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://ace001.dev.broadcloudcc.com:10888/aws/api/security/tenants",
+					"protocol": "http",
+					"host": [
+						"ace001",
+						"dev",
+						"broadcloudcc",
+						"com"
+					],
+					"port": "10888",
+					"path": [
+						"aws",
+						"api",
+						"security",
+						"tenants"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

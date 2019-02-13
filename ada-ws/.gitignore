@@ -1,0 +1,7 @@
+/src/main/webapp/ccone-ad/
+/target/
+/.idea/
+/.settings/
+/.classpath
+/.project
+/packages

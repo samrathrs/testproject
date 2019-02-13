@@ -1,0 +1,21 @@
+{
+    "responseData": {
+      "contactType": "New",
+      "channelId": "3",
+      "omniChannelQueueId": 5,
+      "contactDetails": {
+        "chatReason": "Reasaon one",
+        "messageBody": "Test chat for amar",
+        "type": "Chat",
+        "cduId": "fffae60b01f903200aee3250270f0000",
+        "entryPointId": "6686",
+        "from": {
+          "name": "Test client1",
+          "phone": "9988776655",
+          "email": "client1@test.com"
+        }
+      }
+    },
+    "success": true,
+    "message": "Success/Error message"
+}

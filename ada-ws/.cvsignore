@@ -1,0 +1,12 @@
+.classpath
+.project
+.settings
+build
+packages
+target
+tmp
+ada-ws.properties
+ada-ws.xml
+.idea
+.springBeans
+display-dependency-updates.txt

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="/admin/layout">
+
+<body>
+	<!-- Content Wrapper. Contains page content -->
+	<div layout:fragment="page-content" class="content-wrapper">
+
+		<!-- Content Header (Page header) -->
+		<div class="content-header">
+			<h1>Logging Levels</h1>
+			<ol class="breadcrumb">
+				<li><i class="fa fa-home"></i> <span>Home</span></li>
+				<li class="active">Logging Levels</li>
+			</ol>
+		</div>
+
+		<!-- Main content -->
+		<div class="content body">
+
+			<div layout:fragment="content" class="container">
+				<span id="current-page" class="propertiesf-menu"></span>
+				<div class="alert fade" role="alert" id="result-msg-div"></div>
+				<form   name="loggingLevelsForm" 
+						id="loggingLevelsForm" 
+						action="#" 
+						th:action="@{/nondmz/admin/changeLogLevels}" 
+						th:object="${loggersModel.logLevelInfoForm}" 
+						method="post"
+						>
+					<div th:if="${loggersModel != null and loggersModel.logLevelInfoItems != null}">
+						<table id="data-table" class="table table-bordered table-striped">
+							<thead>
+								<tr>
+									<td>Logger Name</td>
+									<td>Logging Level</td>
+	
+								</tr>
+							</thead>
+							<tbody>
+	
+								 <tr th:each="logLevelInfo : ${loggersModel.logLevelInfoItems}">
+									<td th:text="${logLevelInfo.getName()}"
+										th:field="*{loggersModel.logLevelInfoItems.logLevelInfo.name}">
+									</td>
+									<td>
+										<select 
+												
+												id="logLevelId" 
+												name="logLevel"
+												>
+											<option    th:each="loggerLevel : ${logLevelInfo.allLogLevels}" 
+													   th:value="${loggerLevel.getName()}" 
+													   th:text="${loggerLevel.getName()}"
+													   th:selected="${loggerLevel.getName().equals(logLevelInfo.getLevel())}"
+													   />
+										</select>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+							<p><button type="submit" value="Submit">Change Log Levels</button></p>
+					</div>
+					<div th:if="${loggersModel == null or loggersModel.logLevelInfoItems == null}">There are no loggers.</div>
+				   </form>
+
+			<!-- /.box-body -->
+					<div th:if="${loggersModel != null and loggersModel.logLevelInfoItems != null}">
+				</div>
+			</div>
+
+		</div>
+		<!-- /.content -->
+	</div>
+	<!-- ./content-wrapper -->
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<package-descriptor
+    xmlns="http://transerainc.com/installer"
+    allowMultipleVersions="true">
+
+    <property
+        name="instanceName"
+        regex=".+"
+        default="alexiares"
+        prompt="Instance Name"
+        description="The name of Alexiares instance" />
+
+    <property
+        name="jvm.max.memory"
+        regex="[1-9][0-9]{1,4}"
+        default="1024"
+        prompt="Instance Maximum Memory"
+        description="Maximum memory for this instance (MB)" />
+
+    <property
+        name="install.http.port"
+        regex="[1-9][0-9]{1,4}"
+        default="8220"
+        prompt="HTTP Port"
+        description="The HTTP port" />
+
+    <property
+        name="install.http.nondmz.port"
+        regex="[1-9][0-9]{1,4}"
+        default="8221"
+        prompt="Internal Interface Port"
+        description="The Port used for internal communication like Notification Server callbacks" />
+ 
+    <property
+        name="install.jmxPort"
+        regex="[1-9][0-9]{3,4}"
+        default="8225"
+        prompt="JMX Port"
+        description="The JMX port (for Engineering use)" />
+
+    <property
+        name="logging.level"
+        regex="ERROR|WARN|INFO|DEBUG|TRACE|ALL"
+        default="WARN"
+        prompt="Log Level"
+        level="advanced"
+        description="Default log level." />
+        
+<!-- 
+    <uses-database
+        prompt="ACE Provisioning Database (stores API Keys, etc)"
+        type="aceprov"
+        version="1.0.0.0"
+        attr-prefix="aceprov.db" />
+ -->
+
+</package-descriptor>

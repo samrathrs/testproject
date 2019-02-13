@@ -1,0 +1,226 @@
+Analyzer APIs
+
+
+Example: Find all virtual-teams of a tenant
+
+curl -i -X GET \
+   -H "From:api@ccone.broadcloudcc.com" \
+   -H "Authorization:7r5+2/9SXLeWf5CO1qgpCMApQcs=; tenantId=21" \
+ 'http://ace001.dev.broadcloudcc.com:10888/aws/api/auxiliary-data/resources?q=%7B%22auxiliaryDataType%22%3A%22RESOURCES%22%2C%22objectType%22%3A%22virtual-team%22%7D'
+  
+Decoded URL : http://ace001.dev.broadcloudcc.com:10888/aws/api/auxiliary-data/resources?q={"auxiliaryDataType":"RESOURCES","objectType":"virtual-team"}
+ 
+
+Example: Retrieve virtual-team by id
+
+curl -i -X GET \
+   -H "From:api@ccone.broadcloudcc.com" \
+   -H "Authorization:7r5+2/9SXLeWf5CO1qgpCMApQcs=; tenantId=21" \
+ 'http://ace001.dev.broadcloudcc.com:10888/aws/api/auxiliary-data/resources/virtual-team/AVoijyFwsqqX61p0jFlY'
+ 
+Response:
+ 
+{
+  "id" : "AVoijyFwsqqX61p0jFlY",
+  "type" : "virtual-team",
+  "attributes" : {
+    "primaryPingUrl__s" : "",
+    "overflowUri__s" : "",
+    "mapGroup__l" : 0,
+    "isDedicated__i" : 0,
+    "serviceLevelThreshold__i" : 10,
+    "name__s" : "OutEp1",
+    "externalId__s" : "",
+    "channelType__i" : 1,
+    "tid" : "21",
+    "areaCodesToBlock__s" : "",
+    "backupPingUrl__s" : "",
+    "ivrDnList__s" : "",
+    "permitMonitoring__i" : 1,
+    "label__s" : "",
+    "dnTimeout__i" : 0,
+    "acdType__s" : "",
+    "type__i" : 2,
+    "maximumActiveCalls__i" : 0,
+    "cstts" : 1486638489967,
+    "ivrRequeueUrl__s" : "",
+    "ccOneQueue__i" : 0,
+    "callFlowScriptUrl__s" : "",
+    "checkAgentAvailability__i" : 0,
+    "maximumDnRetries__i" : 0,
+    "recordAllCalls__i" : 1,
+    "description__s" : "",
+    "blockAreaCodes__i" : 0,
+    "outdialPrimaryDidUrl__s" : "",
+    "_lmts__l" : 1487915133188,
+    "recordingPauseDuration__i" : 10,
+    "status__i" : 1,
+    "outdialBackupDidUrl__s" : "",
+    "pauseResumeEnabled__i" : 0,
+    "longitude__d" : 0.0,
+    "ivrParkUrl__s" : "",
+    "maxTimeInQueue__l" : 0,
+    "sid" : "AVoijyFwsqqX61p0jFlY",
+    "latitude__d" : 0.0,
+    "permitRecording__i" : 0,
+    "blockedAreaCodeReconsiderOnError__i" : 0,
+    "billingGroup__l" : 0,
+    "checkCallStatus__i" : 0,
+    "acdDescription__s" : "",
+    "metricsDataPrecedence__s" : "",
+    "vendorId__s" : "",
+    "timezone__s" : "",
+    "tollFreeNumber__s" : "",
+    "tenantId__s" : "",
+    "permitParking__i" : 0,
+    "ccxmlParentDocUrl__s" : "",
+    "permitRetransfer__i" : 0,
+    "dn__s" : ""
+  }
+}
+
+
+Example : Create a virtual-team record
+
+curl -i -X POST \
+   -H "From:api@ccone.broadcloudcc.com" \
+   -H "Authorization:7r5+2/9SXLeWf5CO1qgpCMApQcs=; tenantId=21" \
+   -H "Content-Type:application/json" \
+   -d \
+'[
+  {
+    "type": "virtual-team",
+    "entityDataType": null,
+    "attributes": {
+      "metricsDataPrecedence__s": "",
+      "vendorId__s": "",
+      "dn__s": "",
+      "permitParking__i": 0,
+      "isDedicated__i": 0,
+      "mapGroup__l": 0,
+      "externalId__s": "",
+      "timezone__s": "",
+      "permitRecording__i": 0,
+      "checkCallStatus__i": 0,
+      "billingGroup__l": 0,
+      "ccxmlParentDocUrl__s": "",
+      "tenantId__s": "",
+      "latitude__d": 0,
+      "name__s": "OutEp1",
+      "channelType__i": 1,
+      "maxTimeInQueue__l": 0,
+      "areaCodesToBlock__s": "",
+      "description__s": "",
+      "ccOneQueue__i": 0,
+      "callFlowScriptUrl__s": "",
+      "dnTimeout__i": 0,
+      "longitude__d": 0,
+      "primaryPingUrl__s": "",
+      "acdDescription__s": "",
+      "outdialPrimaryDidUrl__s": "",
+      "backupPingUrl__s": "",
+      "maximumActiveCalls__i": 0,
+      "maximumDnRetries__i": 0,
+      "overflowUri__s": "",
+      "blockAreaCodes__i": 0,
+      "status__i": 1,
+      "ivrDnList__s": "",
+      "serviceLevelThreshold__i": 10,
+      "ivrRequeueUrl__s": "",
+      "checkAgentAvailability__i": 0,
+      "acdType__s": "",
+      "ivrParkUrl__s": "",
+      "type__i": 2,
+      "outdialBackupDidUrl__s": "",
+      "label__s": "",
+      "recordAllCalls__i": 1,
+      "tollFreeNumber__s": "",
+      "permitMonitoring__i": 1,
+      "pauseResumeEnabled__i": 0,
+      "permitRetransfer__i": 0,
+      "recordingPauseDuration__i": 10,
+      "blockedAreaCodeReconsiderOnError__i": 0
+    }
+  }
+]' \
+ 'http://ace001.dev.broadcloudcc.com:10888/aws/api/auxiliary-data/resources/virtual-team'
+
+
+Example : Update a virtual-team record
+
+curl -i -X PUT \
+   -H "From:api@ccone.broadcloudcc.com" \
+   -H "Authorization:7r5+2/9SXLeWf5CO1qgpCMApQcs=; tenantId=21" \
+   -H "Content-Type:application/json" \
+   -d \
+'[
+  {
+    "id": "AVoijyFwsqqX61p0jFlY",
+    "type": "virtual-team",
+    "entityDataType": null,
+    "attributes": {
+      "metricsDataPrecedence__s": "",
+      "vendorId__s": "",
+      "dn__s": "",
+      "permitParking__i": 0,
+      "isDedicated__i": 0,
+      "mapGroup__l": 0,
+      "externalId__s": "",
+      "timezone__s": "",
+      "permitRecording__i": 0,
+      "checkCallStatus__i": 0,
+      "billingGroup__l": 0,
+      "ccxmlParentDocUrl__s": "",
+      "tenantId__s": "",
+      "latitude__d": 0,
+      "name__s": "OutEp1",
+      "channelType__i": 1,
+      "maxTimeInQueue__l": 0,
+      "areaCodesToBlock__s": "",
+      "description__s": "",
+      "ccOneQueue__i": 0,
+      "callFlowScriptUrl__s": "",
+      "dnTimeout__i": 0,
+      "longitude__d": 0,
+      "primaryPingUrl__s": "",
+      "acdDescription__s": "",
+      "outdialPrimaryDidUrl__s": "",
+      "backupPingUrl__s": "",
+      "maximumActiveCalls__i": 0,
+      "maximumDnRetries__i": 0,
+      "overflowUri__s": "",
+      "blockAreaCodes__i": 0,
+      "status__i": 1,
+      "ivrDnList__s": "",
+      "serviceLevelThreshold__i": 10,
+      "ivrRequeueUrl__s": "",
+      "checkAgentAvailability__i": 0,
+      "acdType__s": "",
+      "ivrParkUrl__s": "",
+      "type__i": 2,
+      "outdialBackupDidUrl__s": "",
+      "label__s": "",
+      "recordAllCalls__i": 1,
+      "tollFreeNumber__s": "",
+      "permitMonitoring__i": 1,
+      "pauseResumeEnabled__i": 0,
+      "permitRetransfer__i": 0,
+      "recordingPauseDuration__i": 10,
+      "blockedAreaCodeReconsiderOnError__i": 0
+    }
+  }
+]' \
+ 'http://ace001.dev.broadcloudcc.com:10888/aws/api/auxiliary-data/resources/virtual-team'
+ 
+Response :
+
+[ {
+  "code" : 200,
+  "details" : null,
+  "links" : [ {
+    "rel" : null,
+    "method" : null,
+    "href" : "/auxiliary-data/resources/virtual-team/AVoijyFwsqqX61p0jFlY"
+  } ],
+  "internal" : false
+} ]

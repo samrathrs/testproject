@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	<!-- <servlet> <servlet-name>StartupServlet</servlet-name> <servlet-class>com.transerainc.adaws.servlet.StartupServlet</servlet-class> 
+		<load-on-startup>1</load-on-startup> <async-supported>true</async-supported> 
+		</servlet> -->
+	<!-- <servlet> <servlet-name>ada</servlet-name> <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class> 
+		<init-param> <param-name>contextClass</param-name> <param-value> org.springframework.web.context.support.AnnotationConfigWebApplicationContext 
+		</param-value> </init-param> <init-param> <param-name>contextConfigLocation</param-name> 
+		<param-value> com.transerainc.adaws.config.WebAppConfig </param-value> </init-param> 
+		<load-on-startup>1</load-on-startup> <async-supported>true</async-supported> 
+		</servlet> <servlet-mapping> <servlet-name>ada</servlet-name> <url-pattern>*.htm</url-pattern> 
+		</servlet-mapping> -->
+	<!-- <servlet> <servlet-name>org.apache.jsp.changeLogLevels_jsp</servlet-name> 
+		<servlet-class>org.apache.jsp.changeLogLevels_jsp</servlet-class> </servlet> 
+		<servlet> <servlet-name>org.apache.jsp.footer_jsp</servlet-name> <servlet-class>org.apache.jsp.footer_jsp</servlet-class> 
+		</servlet> <servlet> <servlet-name>org.apache.jsp.header_jsp</servlet-name> 
+		<servlet-class>org.apache.jsp.header_jsp</servlet-class> </servlet> <servlet-mapping> 
+		<servlet-name>org.apache.jsp.changeLogLevels_jsp</servlet-name> <url-pattern>/changeLogLevels.jsp</url-pattern> 
+		</servlet-mapping> <servlet-mapping> <servlet-name>org.apache.jsp.footer_jsp</servlet-name> 
+		<url-pattern>/footer.jsp</url-pattern> </servlet-mapping> <servlet-mapping> 
+		<servlet-name>org.apache.jsp.header_jsp</servlet-name> <url-pattern>/header.jsp</url-pattern> 
+		</servlet-mapping> -->
+	<!-- All session-config, mime-mapping, welcome-file-list, error-page, taglib, 
+		resource-ref, security-constraint, login-config, security-role, env-entry, 
+		and ejb-ref elements should follow this fragment. -->
+	<!-- Automatically created by Apache Tomcat JspC. Place this fragment in 
+		the web.xml before all icon, display-name, description, distributable, and 
+		context-param elements. -->
+	<display-name>
+		Agent Desktop Application (ADA)
+	</display-name>
+	<error-page>
+		<exception-type>
+			java.lang.Throwable
+		</exception-type>
+		<location>
+			/resources/general-error.html
+		</location>
+	</error-page>
+	<error-page>
+		<location>
+			/resources/general-error.html
+		</location>
+	</error-page>
+	<filter>
+		<async-supported>
+			true
+		</async-supported>
+		<filter-class>
+			org.springframework.web.filter.CharacterEncodingFilter
+		</filter-class>
+		<filter-name>
+			encodingFilter
+		</filter-name>
+		<init-param>
+			<param-name>
+				encoding
+			</param-name>
+			<param-value>
+				UTF-8
+			</param-value>
+		</init-param>
+		<init-param>
+			<param-name>
+				forceEncoding
+			</param-name>
+			<param-value>
+				true
+			</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>
+			encodingFilter
+		</filter-name>
+		<url-pattern>
+			/*
+		</url-pattern>
+	</filter-mapping>
+	<jsp-config>
+		<taglib>
+			<taglib-location>
+				/WEB-INF/tld/adaws.tld
+			</taglib-location>
+			<taglib-uri>
+				adaws
+			</taglib-uri>
+		</taglib>
+	</jsp-config>
+	<servlet>
+		<async-supported>
+			true
+		</async-supported>
+		<load-on-startup>
+			1
+		</load-on-startup>
+		<servlet-class>
+			com.transerainc.tam.tpm.PingServlet
+		</servlet-class>
+		<servlet-name>
+			PingServlet
+		</servlet-name>
+	</servlet>
+	<servlet>
+		<async-supported>
+			true
+		</async-supported>
+		<servlet-class>
+			com.transerainc.tam.tpm.ShutdownServlet
+		</servlet-class>
+		<servlet-name>
+			ShutdownServlet
+		</servlet-name>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>
+			PingServlet
+		</servlet-name>
+		<url-pattern>
+			/PingServlet
+		</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>
+			ShutdownServlet
+		</servlet-name>
+		<url-pattern>
+			/ShutdownServlet
+		</url-pattern>
+	</servlet-mapping>
+	<session-config>
+		<cookie-config>
+			<http-only>
+				true
+			</http-only>
+		</cookie-config>
+	</session-config>
+	<welcome-file-list>
+		<welcome-file>
+			index.jsp
+		</welcome-file>
+	</welcome-file-list>
+</web-app>

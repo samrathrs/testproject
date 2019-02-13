@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agentList
+	xmlns="http://aha.transerainc.com/gen/agent">
+	<desktopConfiguration protocolVersion="3.1" agentId="41" siteId="1" siteName="Sunnyvale" teamIds="2" teamNames="Test Team" defaultDn="4083380890" agentName="tri">
+		<auxiliaryList enterpriseId="1">
+			<idleList ids="" names=""/>
+			<wrapUpList ids="" names="" interval="0"/>
+			<callVariables suppressed=" "/>
+		</auxiliaryList>
+		<agentProfileXmlData/>
+		<attribute name="autoWrapUpInterval" value="0"/>
+		<attribute name="callVariablesSuppressed" value=" "/>
+		<attribute name="callVariablesBaseUrl" value=""/>
+		<attribute name="dn.default.description" value="US Format"/>
+		<attribute name="dn.default.prefix" value="1"/>
+		<attribute name="dn.default.regex" value="1[0-9]{3}[2-9][0-9]{6}([,]{1,10}[0-9]+){0,1}"/>
+		<attribute name="dn.default.strip.chars" value="() -"/>
+		<attribute name="dn.other.description" value="Other"/>
+		<attribute name="dn.other.prefix" value=""/>
+		<attribute name="dn.other.regex" value="([0-9a-zA-Z]+[-._])*[0-9a-zA-Z]+"/>
+		<attribute name="dn.other.strip.chars" value="() -"/>
+		<attribute name="heartBeatInterval" value="15000"/>
+		<attribute name="missedHeartBeatsAllowed" value="2"/>
+		<attribute name="lostConnectionRecoveryTimeout" value="120000"/>
+		<attribute name="rejectDuplicateDN" value="false"/>
+		<attribute name="ConsoleLogLevel" value="OFF"/>
+		<attribute name="LocalDiskLogLevel" value="OFF"/>
+		<attribute name="CentralLogLevel" value="OFF"/>
+		<attribute name="autoAvailableWhenNotRespondingReasonsCSV" value="Temporarily Not Available, Not Found, RingNoAnswer, Busy Here"/>
+		<attribute name="notRespondingToAvailableTimeout" value="3"/>
+		<attribute name="outdialEnabled" value="true"/>
+		<attribute name="privacyShieldVisible" value="true"/>
+		<attribute name="forceDefaultDn" value="false"/>
+		<attribute name="endCallEnabled" value="true"/>
+		<attribute name="endConsultEnabled" value="true"/>
+		<attribute name="apsEnabled" value="true"/>
+		<attribute name="apsUrl" value="http://monterey.transerainc.com:9100/aps/aps/index.jsp"/>
+		<attribute name="incidentReportingEnabled" value="false"/>
+		<attribute name="autoBaseUrl" value="false"/>
+		<attribute name="dn.target.prefix" value="1"/>
+		<attribute name="dn.target.regex" value="1[0-9]{3}[2-9][0-9]{6}([,]{1,10}[0-9]+){0,1}"/>
+		<attribute name="dn.target.strip.chars" value="() -"/>
+		<attribute name="systemRecoveryMsg" value="If you are on a call, click the Idle button below. If you are not currently on a call, click the Take Next Call button below."/>
+		<attribute name="diagnosticsPostUrl" value=""/>
+		<attribute name="reloadEnabled" value="true"/>
+		<attribute name="rejectDuplicateDN" value="true"/>
+		<attribute name="isPasswdPolicySet" value="false"/>
+	</desktopConfiguration>
+</agentList>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="ada-ws" basedir="." default="init">
+	<property file="${basedir}/src/installer/properties/build.properties" />
+	<property environment="env" />
+
+	<!-- Define a macro for maven tasks Ref: http://maven.apache.org/ant-tasks/examples/mvn.html -->
+	<property name="maven.home" value="${env.MAVEN_HOME}" />
+	<macrodef name="maven">
+		<attribute name="options" default="" />
+		<attribute name="goal" />
+		<attribute name="basedir" />
+		<attribute name="resultproperty" default="maven.result" />
+		<element name="args" implicit="true" optional="true" />
+		<sequential>
+			<java classname="org.codehaus.classworlds.Launcher" fork="true" dir="@{basedir}" resultproperty="@{resultproperty}">
+				<jvmarg value="-Xmx512m" />
+				<classpath>
+					<fileset dir="${maven.home}/boot">
+						<include name="*.jar" />
+					</fileset>
+					<fileset dir="${maven.home}/lib">
+						<include name="*.jar" />
+					</fileset>
+				</classpath>
+				<sysproperty key="classworlds.conf" value="${maven.home}/bin/m2.conf" />
+				<sysproperty key="maven.home" value="${maven.home}" />
+				<sysproperty key="maven.multiModuleProjectDirectory" value="${maven.home}" />
+				<arg line="--batch-mode @{options} @{goal}" />
+			</java>
+		</sequential>
+	</macrodef>
+
+	<target name="init">
+		<tstamp>
+			<format property="run.time" pattern="MM/dd/yyyy hh:mm aa" />
+		</tstamp>
+		<exec executable="hostname" outputproperty="host.name" />
+		<echo message="Initializing ada-ws build...${run.time}" />
+	</target>
+
+	<target name="updateManifest" depends="init">
+		<buildnumber file="${basedir}/src/installer/properties/build.number" />
+		<loadproperties srcFile="${basedir}/src/installer/properties/build.number" />
+
+		<property name="version.string" value="${build.version}.${env.BUILD_NUMBER}" />
+		<echo message="Build Version : ${version.string}" />
+
+		<tstamp>
+			<format property="current.timestamp" locale="US" pattern="MM-dd-yyyy hh:mm:ss" />
+		</tstamp>
+
+	</target>
+
+	<target name="copy-ada-ui">
+        <delete dir="${basedir}/src/main/webapp/ccone-ad" quiet="true" failonerror="false"/>
+        <copy todir="${basedir}/src/main/webapp/ccone-ad" overwrite="true">
+            <fileset dir="${basedir}/../ada-ui">
+                <exclude name="**/CVS" />
+            </fileset>
+        </copy>
+	</target>
+	
+	<target name="ada-ws" depends="init,copy-ada-ui">
+		<maven basedir="${basedir}" options="-DskipTests=true" goal="clean" resultproperty="maven.build.result" />
+		<maven basedir="${basedir}" options="-DskipTests=true" goal="package" resultproperty="maven.build.result" />
+
+		<!-- <maven basedir="${basedir}/" options="-DskipTests=true" goal="package" resultproperty="maven.build.result" /> -->
+	</target>
+
+    <target name="ada-ws-compile" depends="init">
+        <maven basedir="${basedir}" options="-DskipTests=true" goal="clean" resultproperty="maven.build.result" />
+        <maven basedir="${basedir}" options="-DskipTests=true" goal="package" resultproperty="maven.build.result" />
+    </target>
+
+	<target name="installer" depends="ada-ws, updateManifest" description="Builds the installer package">
+		<property name="install.dir" value="${basedir}/target/installer" />
+		<property name="package.dir" value="${basedir}/packages" />
+
+		<echo message="Current Version is ${version.string}" />
+
+		<delete dir="${install.dir}" />
+		<mkdir dir="${install.dir}/logs" />
+		<mkdir dir="${install.dir}/config" />
+		<mkdir dir="${install.dir}/tpmtemplates" />
+		<touch file="${install.dir}/logs/.default" />
+
+		<!-- Copy Tomcat files -->
+		<copy todir="${install.dir}">
+			<zipfileset src="${tomcat.archive.file}" />
+		</copy>
+
+		<move todir="${install.dir}" overwrite="true">
+			<fileset dir="${install.dir}/${tomcat.ver}" includes="**/*" excludes="webapps/docs/**, 
+				webapps/examples/**, conf/logging.properties" />
+		</move>
+		<delete dir="${install.dir}/${tomcat.ver}" />
+
+		<!-- Delete the Tomcat default apps (docs, manager, etc) -->
+		<delete dir="${install.dir}/webapps/docs" />
+		<delete dir="${install.dir}/webapps/examples" />
+		<delete dir="${install.dir}/webapps/host-manager" />
+		<delete dir="${install.dir}/webapps/manager" />
+		<delete dir="${install.dir}/webapps/ROOT" includes="*" />
+
+		<!-- Unjar the ada-ws war file -->
+		<mkdir dir="${install.dir}/webapps/ada-ws" />
+		<unjar dest="${install.dir}/webapps/ada-ws" src="${basedir}/target/${war.file}" overwrite="true" />
+
+		<!-- Copy items to the ROOT folder -->
+		<copy todir="${install.dir}/webapps/ROOT" file="${basedir}/src/installer/templates/index.jsp" overwrite="true" />
+		<copy todir="${install.dir}/webapps/ROOT" file="${basedir}/src/main/webapp/images/favicon.ico" overwrite="true" />
+		
+		<!-- Copy any other associated files -->
+		<copy todir="${install.dir}/tpmtemplates">
+			<fileset dir="${tam.dir}/src/com/transerainc/tpmtemplates">
+				<exclude name="**/CVS" />
+			</fileset>
+		</copy>
+		
+		
+		<delete dir="${package.dir}" />
+		<property name="current.pkg.dir" value="${package.dir}/ADA-WS/${version.string}" />
+		<mkdir dir="${current.pkg.dir}" />
+
+		<tar destfile="${current.pkg.dir}/ada-ws-${version.string}.tar" basedir="${install.dir}" includes="**/*" />
+		<delete dir="${install.dir}" />
+		<!-- Copy the template files -->
+		<copy todir="${current.pkg.dir}">
+			<fileset dir="${basedir}/src/installer/scripts">
+				<include name="*.xml" />
+			</fileset>
+		</copy>
+
+		<copy todir="${current.pkg.dir}" flatten="true" includeemptydirs="false">
+			<fileset dir="${basedir}/src/installer/templates" includes="**/*">
+			</fileset>
+		</copy>
+		<antcall target="tagCvs" />
+	</target>
+
+	<!-- target called by a parent build script that passes the build.path for updatemanifest to work -->
+	<target name="parentinstaller" description="parentinstaller">
+		<echo message="In parent installer build.path from parent is ${build.path}" />
+
+		<antcall target="installer">
+			<param name="default.build.path" value="${build.path}" />
+		</antcall>
+	</target>
+
+	<target name="tagCvs" description="Tag the CVS modules" unless="skipTag" if="xera.checkout.tag">
+
+		<!-- Checkin the build number file -->
+		<cvs cvsRoot="${env.CVSROOT}" command="commit -m '${msg}' ./src/installer/properties/build.number" />
+
+		<property name="cvs.tmp.file" value=".cvs.version" />
+		<tstamp />
+		<echo message="build_${DSTAMP}_v_${build.version}_${build.number}" file="${cvs.tmp.file}" />
+		<loadfile property="cvs.version.tag" srcFile="${cvs.tmp.file}">
+			<filterchain>
+				<tokenfilter>
+					<replaceregex pattern="\." replace="_" flags="g" />
+				</tokenfilter>
+			</filterchain>
+		</loadfile>
+		<delete file="${cvs.tmp.file}" />
+
+		<echo message="Tagging modules with ${cvs.version.tag}" />
+		<!-- Tag the modules -->
+		<cvs cvsRoot="${env.CVSROOT}" command="rtag ${cvs.version.tag} ada-ws" />
+	</target>
+
+	<target name="initxmlbean">
+		<property name="xmlbeans.home" value="${env.XMLBEANS_HOME}" />
+		<echo message="xmlbeans.home: ${xmlbeans.home}" />
+
+		<!-- check for xbean.jar from binary distribution -->
+		<available property="xmlbeans.lib" value="${xmlbeans.home}/lib" file="${xmlbeans.home}/lib/xbean.jar" />
+
+		<!-- check for xbean.jar compiled from source -->
+		<available property="xmlbeans.lib" value="${xmlbeans.home}/build/lib" file="${xmlbeans.home}/build/lib/xbean.jar" />
+		<fail message="Set XMLBEANS_HOME in your environment." unless="xmlbeans.lib" />
+		<echo message="xmlbeans.lib: ${xmlbeans.lib}" />
+
+		<path id="xmlbeans.path">
+			<fileset dir="${xmlbeans.lib}" includes="*.jar" />
+		</path>
+
+		<taskdef name="xmlbean" classname="org.apache.xmlbeans.impl.tool.XMLBean" classpathref="xmlbeans.path" />
+	</target>
+
+	<target name="xbean-agent-binding" depends="initxmlbean">
+		<delete dir="${build.dir}/xmlbeans" />
+
+		<xmlbean destfile="${basedir}/lib/agent-binding.jar" srcgendir="build/xmlbeans" classpathref="xmlbeans.path" debug="on">
+			<fileset dir="${tam.dir}/src/com/transerainc/tam/xsd">
+				<include name="agent-list.xsd" />
+				<include name="applet-agent-profile.xsd" />
+			</fileset>
+		</xmlbean>
+	</target>
+
+</project>

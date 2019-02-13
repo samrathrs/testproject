@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="/admin/layout">
+
+<body>
+	<!-- Content Wrapper. Contains page content -->
+	<div layout:fragment="page-content" class="content-wrapper">
+
+		<!-- Content Header (Page header) -->
+		<div class="content-header">
+			<h1>Active Agent Sessions</h1>
+			<ol class="breadcrumb">
+				<li><i class="fa fa-home"></i> <span>Home</span></li>
+				<li class="active">Active Agent Sessions</li>
+			</ol>
+		</div>
+
+		<!-- Main content -->
+		<div class="content body">
+
+			<div layout:fragment="content" class="container">
+				<span id="current-page" class="agent-menu"></span>
+				<div class="alert fade" role="alert" id="result-msg-div"></div>
+				<div th:if="${agentInfo != null}">
+					<table id="data-table" class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<td>Enterprise</td>
+								<td>Agent Session Id</td>
+								<td>WebSocket Id</td>
+								<td>Status</td>
+								<td>SubStatus</td>
+								<td>Logout Agent</td>
+								<td>Force Agent Logout</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:if="${agentInfo.empty}">
+								<td colspan="3">No agents</td>
+							</tr>
+							<tr th:each="agent : ${agentInfo}">
+								<td th:text="${agent.enterpriseId}"></td>
+								<td th:text="${agent.agentSessionId}"></td>
+								<td th:text="${agent.webSocketId}"></td>
+								<td th:text="${agent.status}"></td>
+								<td th:text="${agent.subStatus}"></td>
+								<td><button th:id="${agent.agentSessionId}" class="btn btn-sm btn-primary" data-text-loading="Posting..."
+										th:onclick="${'javascript:com.transerainc.adaws.Util.sendRequest(''logoutAgent'', ''POST'', {''agentSessionId'':''' + agent.agentSessionId + '''}, ''result-msg-div'', ''' +  agent.agentSessionId + ''')'}">Logout</button></td>
+								<td><button th:id="${agent.agentSessionId}" class="btn btn-sm btn-primary" data-text-loading="Posting..."
+										th:onclick="${'javascript:com.transerainc.adaws.Util.sendRequest(''forceLogoutAgent'', ''POST'', {''agentSessionId'':''' + agent.agentSessionId + '''}, ''result-msg-div'', ''' +  agent.agentSessionId + ''')'}">Force Logout</button></td>
+							</tr>
+
+						</tbody>
+					</table>
+
+				</div>
+				<div th:if="${agentInfo == null}">There are no logged-in agents.</div>
+
+			</div>
+
+		</div>
+		<!-- /.content -->
+	</div>
+	<!-- ./content-wrapper -->
+
+	<th:block layout:fragment="script">
+		<script th:inline="javascript" type="text/javascript">
+			/*<![CDATA[*/
+			/*$(document).ready(function() {
+				var page = new com.transerainc.ada.Page();
+				page.toggleMenuTab('agent-menu');
+				createDataTable('data-table', false);
+			});*/
+			/*]]>*/
+		</script>
+	</th:block>
+
+</body>
+</html>
